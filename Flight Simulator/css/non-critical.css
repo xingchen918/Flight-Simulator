@@ -1,0 +1,118 @@
+/* 非关键CSS - 仅包含页面次要部分的样式 */
+
+/* 如何玩部分样式 */
+.how-to-play {
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+}
+
+.how-to-play-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--apple-dark-gray);
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.basic-controls-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--apple-green);
+}
+
+.tips-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--apple-orange);
+}
+
+/* FAQ部分样式 */
+.faq-section {
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faq-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--apple-dark-gray);
+}
+
+.faq-container {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.faq-item {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--apple-light-gray);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--apple-blue);
+}
+
+/* 页脚链接样式 */
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: white;
+}
+
+/* 辅助类 */
+.space-x-6 > * + * {
+    margin-left: 1.5rem;
+}
+
+.space-y-2 > * + * {
+    margin-top: 0.5rem;
+}
+
+.list-disc {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.divide-y > * + * {
+    border-top: 1px solid var(--apple-light-gray);
+}
+
+/* 动画效果 */
+.transition {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+} 

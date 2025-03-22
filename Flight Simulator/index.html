@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Simulator - Realistic Aviation Experience | Play Online</title>
+    <meta name="description" content="Experience the thrill of flying with our realistic Flight Simulator. Navigate the skies, master flight controls, and enjoy stunning graphics in this immersive aviation experience.">
+    <meta name="keywords" content="Flight Simulator, aviation game, flight game, online flight simulator, realistic flight game">
+    <link rel="canonical" href="https://realflightsimulator.online">
+    
+    <!-- 预连接到游戏资源域名，减少DNS查询时间 -->
+    <link rel="preconnect" href="https://freezenova.com">
+    <link rel="dns-prefetch" href="https://freezenova.com">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Flight Simulator - Realistic Aviation Experience">
+    <meta property="og:description" content="Experience the thrill of flying with our realistic Flight Simulator. Navigate the skies, master flight controls, and enjoy stunning graphics.">
+    <meta property="og:url" content="https://realflightsimulator.online">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="public/favicon.ico" type="image/x-icon">
+    
+    <!-- 关键CSS内联，避免外部CSS阻塞渲染 -->
+    <style>
+        /* 基础样式和布局 */
+        :root {
+            --apple-blue: #007AFF;
+            --apple-indigo: #5856D6;
+            --apple-purple: #AF52DE;
+            --apple-pink: #FF2D55;
+            --apple-red: #FF3B30;
+            --apple-orange: #FF9500;
+            --apple-yellow: #FFCC00;
+            --apple-green: #34C759;
+            --apple-teal: #5AC8FA;
+            --apple-gray: #8E8E93;
+            --apple-light-gray: #E5E5EA;
+            --apple-dark-gray: #1C1C1E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F5F5F7;
+            color: #1D1D1F;
+            line-height: 1.5;
+        }
+        
+        /* 布局容器 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        .min-h-screen {
+            min-height: 100vh;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .flex-grow {
+            flex-grow: 1;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        /* 游戏容器和iframe */
+        .game-container {
+            aspect-ratio: 16/9;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .game-iframe.loaded {
+            opacity: 1;
+        }
+        
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            color: white;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid var(--apple-blue);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 16px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .game-container {
+                aspect-ratio: 4/3;
+                border-radius: 8px;
+            }
+            
+            .md\:flex-row {
+                flex-direction: column;
+            }
+            
+            .md\:py-6 {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+        
+        /* 头部样式 */
+        .header {
+            background-color: var(--apple-blue);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        /* 其他辅助类 */
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .bg-white { background-color: white; }
+    </style>
+    
+    <!-- 延迟加载非关键CSS -->
+    <link rel="stylesheet" href="css/non-critical.css" media="print" onload="this.media='all'">
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h1>Flight Simulator</h1>
+                        <p class="mt-2">Experience the ultimate aviation adventure with realistic controls and stunning visuals</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-4">
+            <!-- Game Section -->
+            <section class="mb-12">
+                <h2 class="text-center mb-6" style="font-size: 1.5rem; font-weight: 600; color: var(--apple-dark-gray);">Play Flight Simulator Online</h2>
+                
+                <div class="game-container">
+                    <!-- 加载指示器 -->
+                    <div class="loading-indicator" id="loadingIndicator">
+                        <div class="loading-spinner"></div>
+                        <p>加载游戏中...</p>
+                        <p style="font-size: 0.875rem; margin-top: 8px;">首次加载可能需要一些时间，请耐心等待</p>
+                    </div>
+                    
+                    <iframe 
+                        id="gameIframe"
+                        data-src="https://freezenova.com/games/2023/unity/real-flight-simulator/index.html" 
+                        class="game-iframe" 
+                        allowfullscreen 
+                        title="Flight Simulator Game">
+                    </iframe>
+                </div>
+                
+                <div class="mt-4 text-center" style="color: var(--apple-gray); font-size: 0.875rem;">
+                    <p>* 游戏加载时间取决于您的网络速度和设备性能</p>
+                </div>
+            </section>
+            
+            <!-- Game Info Section -->
+            <section class="mb-12 mx-auto" style="max-width: 64rem;">
+                <h2 class="mb-6" style="font-size: 1.5rem; font-weight: 600; color: var(--apple-dark-gray);">About Flight Simulator</h2>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <p class="mb-4" style="font-size: 1.125rem;">Flight Simulator is an immersive aviation experience that puts you in the pilot's seat of various aircraft. With realistic physics and detailed environments, you'll experience the thrill of flight from takeoff to landing.</p>
+                    
+                    <h3 style="font-weight: bold; font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--apple-blue);">Key Features</h3>
+                    <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                        <li style="margin-bottom: 0.5rem;">Realistic flight physics and controls</li>
+                        <li style="margin-bottom: 0.5rem;">Multiple aircraft to master</li>
+                        <li style="margin-bottom: 0.5rem;">Detailed environments with changing weather conditions</li>
+                        <li style="margin-bottom: 0.5rem;">Challenging missions and free flight mode</li>
+                        <li>Intuitive interface suitable for beginners and experienced pilots</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- How to Play Section -->
+            <section class="mb-12 max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-apple-darkGray">How to Play</h2>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 text-apple-green">Basic Controls</h3>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Use <strong>W, A, S, D</strong> keys or arrow keys to control the aircraft</li>
+                                <li>Press <strong>Space</strong> to increase throttle</li>
+                                <li>Press <strong>Shift</strong> to decrease throttle</li>
+                                <li>Use <strong>Q, E</strong> for rudder control</li>
+                                <li>Press <strong>G</strong> to deploy/retract landing gear</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 text-apple-orange">Tips for Success</h3>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Start with basic flight maneuvers before attempting complex ones</li>
+                                <li>Practice takeoffs and landings regularly</li>
+                                <li>Monitor your airspeed and altitude constantly</li>
+                                <li>Adjust throttle gradually for smoother control</li>
+                                <li>Complete tutorials to learn advanced techniques</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- FAQ Section -->
+            <section class="max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-apple-darkGray">Frequently Asked Questions</h2>
+                <div class="bg-white rounded-xl shadow-sm divide-y">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-apple-blue">Is Flight Simulator free to play?</h3>
+                        <p>Yes, Flight Simulator is completely free to play online through our website.</p>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-apple-blue">Do I need to download anything?</h3>
+                        <p>No downloads required! Flight Simulator runs directly in your web browser.</p>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-apple-blue">What are the system requirements?</h3>
+                        <p>A modern web browser with WebGL support and a stable internet connection. For the best experience, we recommend using Chrome, Firefox, or Safari on a device with at least 4GB RAM.</p>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-apple-blue">Can I play on mobile devices?</h3>
+                        <p>Yes, Flight Simulator is optimized for both desktop and mobile play, though the experience is more immersive on larger screens.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer style="background-color: var(--apple-dark-gray); color: white; padding: 2rem 0;">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p style="opacity: 0.9;">&copy; 2023 Flight Simulator Online. All rights reserved.</p>
+                    </div>
+                    <div>
+                        <ul class="flex space-x-6">
+                            <li><a href="#" class="text-white/80 hover:text-white transition">Privacy Policy</a></li>
+                            <li><a href="#" class="text-white/80 hover:text-white transition">Terms of Service</a></li>
+                            <li><a href="#" class="text-white/80 hover:text-white transition">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- 延迟加载游戏iframe的脚本 -->
+    <script>
+        // 当页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 监测页面滚动到游戏容器时加载游戏
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadGame();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+            
+            const gameContainer = document.querySelector('.game-container');
+            observer.observe(gameContainer);
+            
+            // 如果用户已经滚动到游戏位置或页面较小，直接加载游戏
+            if (isInViewport(gameContainer)) {
+                loadGame();
+            }
+        });
+        
+        function loadGame() {
+            const iframe = document.getElementById('gameIframe');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            // 设置iframe的src属性以开始加载
+            iframe.src = iframe.getAttribute('data-src');
+            
+            // 当iframe加载完成时，隐藏加载指示器并显示游戏
+            iframe.addEventListener('load', function() {
+                iframe.classList.add('loaded');
+                // 淡出加载指示器
+                loadingIndicator.style.opacity = '0';
+                setTimeout(() => {
+                    loadingIndicator.style.display = 'none';
+                }, 500);
+            });
+        }
+        
+        // 检查元素是否在视口中的辅助函数
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+    </script>
+</body>
+</html> 
